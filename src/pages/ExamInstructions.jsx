@@ -7,7 +7,7 @@ function ExamInstructions() {
 
   return (
     <div className="min-h-screen flex justify-center items-center">
-      <div className="bg-white p-6 rounded shadow w-[500px]">
+      <div className="bg-white p-6 rounded shadow max-w-lg">
         <h1 className="text-2xl font-bold mb-4">
           Instructions
         </h1>

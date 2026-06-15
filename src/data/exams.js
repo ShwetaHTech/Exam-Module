@@ -1,0 +1,58 @@
+const exams = [
+  {
+    id: 1,
+    name: "Aptitude Test",
+    category: "Aptitude",
+    duration: "60 Minutes",
+    questions: 50,
+    marks: 50,
+    difficulty: "Medium",
+  },
+  {
+    id: 2,
+    name: "Technical Test",
+    category: "Technical",
+    duration: "90 Minutes",
+    questions: 75,
+    marks: 75,
+    difficulty: "Hard",
+  },
+  {
+    id: 3,
+    name: "English Test",
+    category: "Language",
+    duration: "45 Minutes",
+    questions: 40,
+    marks: 40,
+    difficulty: "Easy",
+  },
+  {
+    id: 4,
+    name: "Programming Test",
+    category: "Programming",
+    duration: "120 Minutes",
+    questions: 60,
+    marks: 60,
+    difficulty: "Hard",
+  },
+  {
+    id: 5,
+    name: "Personality Test",
+    category: "Personality",
+    duration: "30 Minutes",
+    questions: 25,
+    marks: 25,
+    difficulty: "Easy",
+  },
+  {
+    id: 6,
+    name: "SST Exam",
+    category: "SST",
+    duration: "60 Minutes",
+    questions: 50,
+    marks: 50,
+    difficulty: "Medium",
+  },
+];
+
+export default exams;

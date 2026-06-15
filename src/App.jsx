@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import AvailableExams from "./pages/AvailableExams";
 import ExamInstructions from "./pages/ExamInstructions";
 import StartExam from "./pages/StartExam";
+import ExamCategories from "./pages/ExamCategories";
 
 function App() {
   return (
@@ -13,6 +14,11 @@ function App() {
         path="/instructions"
         element={<ExamInstructions />}
       />
+
+<Route
+  path="/categories"
+  element={<ExamCategories />}
+/>
 
       <Route
         path="/exam"

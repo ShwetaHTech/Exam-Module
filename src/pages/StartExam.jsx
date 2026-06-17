@@ -1,11 +1,53 @@
 import { useState, useEffect } from "react";
-import questions from "../data/questions";
+import { useParams } from "react-router-dom";
+
+import aptitudeQuestions from "../data/aptitudeQuestions";
+import technicalQuestions from "../data/technicalQuestions";
+import personalityQuestions from "../data/personalityQuestions";
+import sstQuestions from "../data/sstQuestions";
+import englishQuestions from "../data/englishQuestions";
+import programmingQuestions from "../data/programmingQuestions";
+import exams from "../data/exams";
+
 import QuestionCard from "../components/QuestionCard";
 import QuestionNavigator from "../components/QuestionNavigator";
 import ReviewButton from "../components/ReviewButton";
 import ResultScreen from "../components/ResultScreen";
 
 function StartExam() {
+
+const { id } = useParams();
+
+const selectedExam = exams.find(
+  (exam) => exam.id === Number(id)
+);
+
+let questions = [];
+
+if (selectedExam?.category === "Aptitude Test") {
+  questions = aptitudeQuestions;
+}
+
+if (selectedExam?.category === "Technical Test") {
+  questions = technicalQuestions;
+}
+
+if (selectedExam?.category === "Personality Test") {
+  questions = personalityQuestions;
+}
+
+if (selectedExam?.category === "SST Exam") {
+  questions = sstQuestions;
+}
+
+if (selectedExam?.category === "English Test") {
+  questions = englishQuestions;
+}
+
+if (selectedExam?.category === "Programming Test") {
+  questions = programmingQuestions;
+}
+
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [reviewQuestions, setReviewQuestions] = useState([]);
   const [answers, setAnswers] = useState({});

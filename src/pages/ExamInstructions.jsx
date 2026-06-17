@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import {useParams,  useNavigate } from "react-router-dom";
 
 function ExamInstructions() {
   const [checked, setChecked] = useState(false);
   const navigate = useNavigate();
+const { id } = useParams();
 
   return (
     <div className="min-h-screen flex justify-center items-center">
@@ -27,14 +28,24 @@ function ExamInstructions() {
           />
           I agree to the instructions
         </label>
+{/* <button
+  onClick={() => navigate(`/exam/${id}`)}
+>
+  Start Exam
+</button> */}
 
-        <button
-          disabled={!checked}
-          onClick={() => navigate("/exam")}
-          className="bg-green-600 text-white px-4 py-2 rounded disabled:bg-gray-400"
-        >
-          Start Exam
-        </button>
+<button
+  disabled={!checked}
+  onClick={() => navigate(`/exam/${id}`)}
+  className={`px-5 py-2 rounded-lg text-white ${
+    checked
+      ? "bg-blue-600 hover:bg-blue-700"
+      : "bg-gray-400 cursor-not-allowed"
+  }`}
+>
+  Start Exam
+</button>
+
       </div>
     </div>
   );

@@ -21,7 +21,7 @@ function App() {
     element={<ExamCategories />}
   />
 
-  <Route
+  {/* <Route
     path="/instructions"
     element={<ExamInstructions />}
   />
@@ -29,12 +29,24 @@ function App() {
   <Route
     path="/exam"
     element={<StartExam />}
-  />
+  /> */}
 
 <Route
   path="/view-details/:id"
   element={<ViewDetails />}
 />
+
+<Route
+  path="/instructions/:id"
+  element={<ExamInstructions />}
+/>
+
+<Route
+  path="/exam/:id"
+  element={<StartExam />}
+/>
+
+
 
 </Routes>
   );

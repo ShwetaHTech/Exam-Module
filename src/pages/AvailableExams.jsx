@@ -1,83 +1,145 @@
+import { useState } from "react";
 import {
-  FaBrain,
-  FaLaptopCode,
-  FaUserTie,
-  FaBookOpen,
-  FaLanguage,
-  FaCode,
-} from "react-icons/fa";
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
+import exams from "../data/exams";
 
-const categories = [
-  {
-    title: "Aptitude Test",
-    icon: <FaBrain size={40} />,
-    gradient: "from-blue-500 to-cyan-500",
-  },
-  {
-    title: "Technical Test",
-    icon: <FaLaptopCode size={40} />,
-    gradient: "from-purple-500 to-pink-500",
-  },
-  {
-    title: "Personality Test",
-    icon: <FaUserTie size={40} />,
-    gradient: "from-green-500 to-emerald-500",
-  },
-  {
-    title: "SST Exam",
-    icon: <FaBookOpen size={40} />,
-    gradient: "from-orange-500 to-red-500",
-  },
-  {
-    title: "English Test",
-    icon: <FaLanguage size={40} />,
-    gradient: "from-indigo-500 to-blue-500",
-  },
-  {
-    title: "Programming Test",
-    icon: <FaCode size={40} />,
-    gradient: "from-pink-500 to-rose-500",
-  },
-];
+function AvailableExams() {
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
-function ExamCategories() {
+  const categoryFromUrl =
+    searchParams.get("category") || "All";
+
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const categories = [
+    "All",
+    "Aptitude Test",
+    "Technical Test",
+    "Personality Test",
+    "SST Exam",
+    "English Test",
+    "Programming Test",
+  ];
+
+  const selectedCategory = categoryFromUrl;
+
+  const filteredExams = exams.filter((exam) => {
+    const matchesSearch = exam.name
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase());
+
+    const matchesCategory =
+      selectedCategory === "All"
+        ? true
+        : exam.category === selectedCategory;
+
+    return matchesSearch && matchesCategory;
+  });
+
   return (
     <div className="min-h-screen bg-slate-100 p-6">
-      <div className="text-center mb-10">
-        <h1 className="text-4xl font-bold text-blue-700">
-          Exam Categories
-        </h1>
+      <h1 className="text-4xl font-bold text-center text-blue-700 mb-4">
+        Available Exams
+      </h1>
 
-        <p className="text-gray-600 mt-2">
-          Explore exams by category
-        </p>
+      <div className="text-center mb-8">
+        <button
+          onClick={() => navigate("/categories")}
+          className="bg-purple-600 text-white px-5 py-3 rounded-lg hover:bg-purple-700"
+        >
+          Browse Categories
+        </button>
       </div>
 
-      <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {categories.map((category, index) => (
-          <div
-            key={index}
-            className={`bg-gradient-to-r ${category.gradient}
-            text-white rounded-2xl p-8 shadow-lg
-            hover:scale-105 hover:shadow-2xl
-            transition-all duration-300 cursor-pointer`}
-          >
-            <div className="mb-4">
-              {category.icon}
-            </div>
+      <div className="max-w-5xl mx-auto flex flex-col md:flex-row gap-4 mb-8">
+        <input
+          type="text"
+          placeholder="Search Exams..."
+          value={searchTerm}
+          onChange={(e) =>
+            setSearchTerm(e.target.value)
+          }
+          className="flex-1 border rounded-lg p-3"
+        />
 
-            <h2 className="text-2xl font-bold">
-              {category.title}
+        <select
+          value={selectedCategory}
+          onChange={(e) =>
+            navigate(
+              `/available-exams?category=${encodeURIComponent(
+                e.target.value
+              )}`
+            )
+          }
+          className="border rounded-lg p-3"
+        >
+          {categories.map((category) => (
+            <option
+              key={category}
+              value={category}
+            >
+              {category}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {filteredExams.map((exam) => (
+          <div
+            key={exam.id}
+            className="bg-white rounded-xl shadow-lg p-6 hover:shadow-2xl hover:-translate-y-1 transition-all"
+          >
+            <h2 className="text-xl font-bold text-blue-700">
+              {exam.name}
             </h2>
 
-            <p className="mt-2 text-sm opacity-90">
-              Click to explore available exams.
+            <p className="text-gray-600 mt-2">
+              Category: {exam.category}
             </p>
+
+            <div className="mt-4 space-y-1">
+              <p>⏰ {exam.duration}</p>
+              <p>❓ {exam.questions} Questions</p>
+              <p>🏆 {exam.marks} Marks</p>
+              <p>📈 {exam.difficulty}</p>
+            </div>
+
+            <div className="flex gap-2 mt-5">
+              <button
+                onClick={() =>
+                  alert(
+                    `${exam.name}\n\nCategory: ${exam.category}\nDuration: ${exam.duration}\nQuestions: ${exam.questions}\nMarks: ${exam.marks}`
+                  )
+                }
+                className="flex-1 border border-blue-600 text-blue-600 py-2 rounded-lg hover:bg-blue-50"
+              >
+                View Details
+              </button>
+
+              <button
+                onClick={() =>
+                  navigate("/instructions")
+                }
+                className="flex-1 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700"
+              >
+                Start Exam
+              </button>
+            </div>
           </div>
         ))}
       </div>
+
+      {filteredExams.length === 0 && (
+        <div className="text-center mt-10 text-gray-500">
+          No exams found.
+        </div>
+      )}
     </div>
   );
 }
 
-export default ExamCategories;
+export default AvailableExams;

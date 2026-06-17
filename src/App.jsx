@@ -8,23 +8,28 @@ import ExamCategories from "./pages/ExamCategories";
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<AvailableExams />} />
+  <Route path="/" element={<AvailableExams />} />
 
-      <Route
-        path="/instructions"
-        element={<ExamInstructions />}
-      />
+  <Route
+    path="/available-exams"
+    element={<AvailableExams />}
+  />
 
-<Route
-  path="/categories"
-  element={<ExamCategories />}
-/>
+  <Route
+    path="/categories"
+    element={<ExamCategories />}
+  />
 
-      <Route
-        path="/exam"
-        element={<StartExam />}
-      />
-    </Routes>
+  <Route
+    path="/instructions"
+    element={<ExamInstructions />}
+  />
+
+  <Route
+    path="/exam"
+    element={<StartExam />}
+  />
+</Routes>
   );
 }
 

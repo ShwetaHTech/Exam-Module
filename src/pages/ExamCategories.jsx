@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import {
   FaBrain,
   FaLaptopCode,
@@ -41,6 +42,8 @@ const categories = [
 ];
 
 function ExamCategories() {
+  const navigate = useNavigate();
+
   return (
     <div className="min-h-screen bg-slate-100 p-6">
       <div className="text-center mb-10">
@@ -57,12 +60,21 @@ function ExamCategories() {
         {categories.map((category, index) => (
           <div
             key={index}
+            onClick={() =>
+              navigate(
+                `/available-exams?category=${encodeURIComponent(
+                  category.title
+                )}`
+              )
+            }
             className={`bg-gradient-to-r ${category.gradient}
             text-white rounded-2xl p-8 shadow-lg
             hover:scale-105 hover:shadow-2xl
             transition-all duration-300 cursor-pointer`}
           >
-            <div className="mb-4">{category.icon}</div>
+            <div className="mb-4">
+              {category.icon}
+            </div>
 
             <h2 className="text-2xl font-bold">
               {category.title}

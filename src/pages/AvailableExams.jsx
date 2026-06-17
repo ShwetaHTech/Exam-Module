@@ -109,16 +109,14 @@ function AvailableExams() {
             </div>
 
             <div className="flex gap-2 mt-5">
-              <button
-                onClick={() =>
-                  alert(
-                    `${exam.name}\n\nCategory: ${exam.category}\nDuration: ${exam.duration}\nQuestions: ${exam.questions}\nMarks: ${exam.marks}`
-                  )
-                }
-                className="flex-1 border border-blue-600 text-blue-600 py-2 rounded-lg hover:bg-blue-50"
-              >
-                View Details
-              </button>
+             <button
+  onClick={() =>
+    navigate(`/view-details/${exam.id}`)
+  }
+  className="flex-1 border border-blue-600 text-blue-600 py-2 rounded-lg hover:bg-blue-50"
+>
+  View Details
+</button>
 
               <button
                 onClick={() =>

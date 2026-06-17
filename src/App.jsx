@@ -4,6 +4,7 @@ import AvailableExams from "./pages/AvailableExams";
 import ExamInstructions from "./pages/ExamInstructions";
 import StartExam from "./pages/StartExam";
 import ExamCategories from "./pages/ExamCategories";
+import ViewDetails from "./pages/ViewDetails";
 
 function App() {
   return (
@@ -29,6 +30,12 @@ function App() {
     path="/exam"
     element={<StartExam />}
   />
+
+<Route
+  path="/view-details/:id"
+  element={<ViewDetails />}
+/>
+
 </Routes>
   );
 }
